@@ -10,3 +10,6 @@ add_executable(commandline commandline/main.cpp)
 add_executable(best_practices
         best_practices/main.cpp
         best_practices/student_info.cpp)
+add_executable(stringstream stringstream/main.cpp)
+add_executable(vector vector/main.cpp)
+add_executable(dynamic_array dynamic_array/main.cpp)
