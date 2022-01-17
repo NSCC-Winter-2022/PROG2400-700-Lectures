@@ -5,17 +5,22 @@ using namespace std;
 
 class DynamicArray {
 private:
-    int *m_nums;
-    int m_size;
-    int m_capacity;
+    int *m_nums{};
+    int m_size{};
+    int m_capacity{};
 
 public:
     DynamicArray() : m_nums(nullptr), m_size(0), m_capacity(0) {}
+    DynamicArray(initializer_list<int> nums) : DynamicArray() {
+        for (int num : nums) {
+            add(num);
+        }
+    }
     virtual ~DynamicArray() {
         delete [] m_nums;
     }
 
-    int capacity() { return m_capacity; }
+    [[nodiscard]] int capacity() const { return m_capacity; }
 
     void add(int num) {
         // re-allocate memory for new element
@@ -53,12 +58,7 @@ ostream& operator<<(ostream& output, DynamicArray& array) {
 int main() {
 
     // test 1 - create an array
-    DynamicArray nums;
-    nums.add(1);
-    nums.add(2);
-    nums.add(3);
-    nums.add(4);
-    nums.add(5);
+    DynamicArray nums {1, 2, 3, 4, 5};
     cout << setw(11) << "initial) ";
     cout << setw(2) << "capacity: " << nums.capacity() << ") ";
     cout << nums << endl;
