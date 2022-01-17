@@ -7,3 +7,6 @@ set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 add_executable(echo echo/main.cpp)
 add_executable(commandline commandline/main.cpp)
+add_executable(best_practices
+        best_practices/main.cpp
+        best_practices/student_info.cpp)
