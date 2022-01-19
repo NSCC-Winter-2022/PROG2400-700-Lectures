@@ -13,3 +13,4 @@ add_executable(best_practices
 add_executable(stringstream stringstream/main.cpp)
 add_executable(vector vector/main.cpp)
 add_executable(dynamic_array dynamic_array/main.cpp)
+add_executable(linkedlist linkedlist/main.cpp)
