@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -13,9 +14,10 @@ public:
 class LinkedList {
 private:
     LinkedListNode* m_start;    // points to the first node in the chain
+    int m_size;
 
 public:
-    LinkedList() : m_start(nullptr) {}
+    LinkedList() : m_start(nullptr), m_size(0) {}
     virtual ~LinkedList() {
         LinkedListNode* node = m_start;
 
@@ -30,6 +32,7 @@ public:
 
         // create a new node
         LinkedListNode* new_node = new LinkedListNode();
+        //auto new_node = make_unique<LinkedListNode>();
         new_node->m_data = data;
 
         // is this the first node in the chain?
@@ -52,6 +55,52 @@ public:
                 prev->m_next = new_node;
             }
         }
+        m_size++;
+    }
+
+    void insert_node(int data, int position) {
+
+        // check to see at least one node to insert before
+        if (position > m_size) {
+            cout << "Node to insert before doesn't exist." << endl;
+            return;
+        }
+
+        LinkedListNode* new_node = new LinkedListNode();
+        if (new_node == nullptr) {
+            cout << "Couldn't allocate memory for new nodes." << endl;
+            return;
+        }
+        new_node->m_data = data;
+
+        // find position
+        LinkedListNode* node = m_start;
+        LinkedListNode* prev = nullptr;
+        int curr_pos = 1;
+
+        while (node != nullptr) {
+
+            // application specific - use position to find node
+            if (curr_pos == position) {
+                break;
+            }
+
+            curr_pos++;
+            prev = node;
+            node = node->m_next;
+        }
+
+        if (prev == nullptr) {
+            // insert node at the start
+            new_node->m_next = m_start;
+            m_start = new_node;
+        } else {
+            // insert node in the middle
+            new_node->m_next = prev->m_next;
+            prev->m_next = new_node;
+        }
+
+        m_size++;
     }
 
     void delete_node(int data) {
@@ -84,6 +133,7 @@ public:
             }
 
             delete node;
+            m_size--;
         }
 
     }
@@ -109,36 +159,65 @@ int main() {
     LinkedList list;
 
     // test 1 - add new nodes
+    cout << "Test 1" << endl;
+    cout << "------" << endl;
+
     list.add(1);
     list.add(2);
     list.add(3);
     list.add(4);
     list.add(5);
 
-    cout << "Test 1" << endl;
-    cout << "------" << endl;
     cout << list << endl;
 
     // test 2 - deleting node in the middle
-    list.delete_node(3); // delete the node with the value of 3
-
     cout << "Test 2" << endl;
     cout << "------" << endl;
+
+    list.delete_node(3); // delete the node with the value of 3
+
     cout << list << endl;
 
     // test 3 - deleting node at the end
-    list.delete_node(5); // delete the node with the value of 5
-
     cout << "Test 3" << endl;
     cout << "------" << endl;
+
+    list.delete_node(5); // delete the node with the value of 5
+
     cout << list << endl;
 
     // test 4 - deleting node at the beginning
-    list.delete_node(1); // delete the node with the value of 1
-
     cout << "Test 4" << endl;
     cout << "------" << endl;
+
+    list.delete_node(1); // delete the node with the value of 1
+
     cout << list << endl;
+
+    // test 5 - inserting in the middle of the list
+    cout << "Test 5" << endl;
+    cout << "------" << endl;
+
+    list.insert_node(6, 2); // insert 6 before node number 2
+
+    cout << list << endl;
+
+    // test 6 - insert at the beginning of the list
+    cout << "Test 6" << endl;
+    cout << "------" << endl;
+
+    list.insert_node(7, 1); // insert 7 before node number 1
+
+    cout << list << endl;
+
+    // test 7 - try to insert into empty list
+    cout << "Test 7" << endl;
+    cout << "------" << endl;
+
+    LinkedList list2;
+    list2.insert_node(10, 4);   // try to insert 10 before node 4
+
+    cout << list2 << endl;
 
     return 0;
 
