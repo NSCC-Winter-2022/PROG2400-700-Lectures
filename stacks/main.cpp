@@ -1,70 +1,7 @@
+#include "stack.h"
 #include <iostream>
 
 using namespace std;
-
-class Node {
-public:
-    int m_data {-1};
-    Node* m_next {nullptr};
-};
-
-class Stack {
-private:
-    Node* m_first {nullptr};
-
-public:
-    Stack() = default;
-    virtual ~Stack() {
-    }
-
-    void push(int num) {
-
-        auto new_node = new Node();
-        new_node->m_data = num;
-
-        // is this the first node?
-        if (m_first == nullptr) {
-            // yep!
-            m_first = new_node;
-        } else {
-            // nope, one already exists
-            new_node->m_next = m_first;
-            m_first = new_node;
-        }
-    }
-
-    int peek() {
-        if (m_first != nullptr) {
-            return m_first->m_data;
-        }
-        return -1;
-    }
-
-    void pop() {
-
-        // is the stack empty?
-        if (m_first != nullptr) {
-            auto node = m_first;
-
-            // detach node
-            m_first = node->m_next;
-
-            delete node;
-        }
-    }
-
-    friend ostream& operator<<(ostream& output, Stack& stack);
-};
-
-ostream& operator<<(ostream& output, Stack& stack) {
-
-    auto node = stack.m_first;
-    while (node != nullptr) {
-        output << node->m_data << " ";
-        node = node->m_next;
-    }
-    return output;
-}
 
 int main() {
 
@@ -74,7 +11,7 @@ int main() {
     cout << "Test 1: add first node" << endl;
     cout << "----------------------" << endl;
 
-    stack.push(1);
+    stack.push({10, 20});
 
     cout << stack << endl;
 
@@ -82,10 +19,10 @@ int main() {
     cout << "Test 2: add more nodes" << endl;
     cout << "----------------------" << endl;
 
-    stack.push(2);
-    stack.push(3);
-    stack.push(4);
-    stack.push(5);
+    stack.push({20, 25});
+    stack.push({25, 35});
+    stack.push({35, 45});
+    stack.push({45, 55});
 
     cout << stack << endl;
 
@@ -107,7 +44,7 @@ int main() {
     cout << "Test 5: pop other nodes off stack" << endl;
     cout << "---------------------------------" << endl;
 
-    while (stack.peek() != -1) {
+    while (stack.peek() != Grade(-1, -1)) {
         stack.pop();
     }
 
@@ -117,7 +54,7 @@ int main() {
     cout << "Test 6: add first node again" << endl;
     cout << "----------------------------" << endl;
 
-    stack.push(6);
+    stack.push({60, 70});
 
     cout << stack << endl;
 
