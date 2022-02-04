@@ -6,7 +6,7 @@ using namespace std;
 class Node {
 public:
     int m_data {-1};
-    Node *m_next {nullptr};
+    Node* m_next {nullptr};
 };
 
 class Queue {
@@ -51,7 +51,7 @@ public:
     int pop() {
 
         Node* node = m_first;
-        //std::unique_ptr<Node> node = static_cast<std::unique_ptr<Node>>(m_first);
+        // std::unique_ptr<Node> node = static_cast<std::unique_ptr<Node>>(m_first);
 
         // detach previous first node
         m_first = m_first->m_next;
