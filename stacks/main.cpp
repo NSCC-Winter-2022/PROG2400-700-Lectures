@@ -1,3 +1,4 @@
+#include "grade.h"
 #include "stack.h"
 #include <iostream>
 

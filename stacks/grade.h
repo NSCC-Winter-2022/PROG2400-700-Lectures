@@ -8,6 +8,7 @@ public:
     int m_mark;
     int m_total;
 
+    Grade() = default;
     Grade(int mark, int total);
     bool operator!=(Grade grade);
 };

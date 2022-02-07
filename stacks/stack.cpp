@@ -1,7 +1,7 @@
 #include "stack.h"
 
 Stack::~Stack() {
-    while (peek() != -1) {
+    while (peek() != Grade(-1, -1)) {
         pop();
     }
 }
